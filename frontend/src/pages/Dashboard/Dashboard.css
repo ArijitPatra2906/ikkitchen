@@ -1,0 +1,15 @@
+.dashboard_container {
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-left: 20px;
+}
+
+.dashMain {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}

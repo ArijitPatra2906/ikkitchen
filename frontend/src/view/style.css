@@ -1,0 +1,35 @@
+.dashboard,
+.faq,
+.blog,
+.course,
+.contact {
+    display: flex;
+}
+
+.dashboardContainer,
+.faqContainer,
+.contactContainer,
+.blogContainer,
+.courseContainer {
+    flex: 6;
+
+}
+
+.homeleft {
+    width: 50%;
+}
+
+.home_right {
+    width: 50%;
+}
+
+.home_right img {
+    height: 99.4vh;
+    width: 100%;
+}
+
+@media (max-width: 700px) {
+    .home_right {
+        display: none;
+    }
+}
