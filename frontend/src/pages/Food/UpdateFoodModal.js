@@ -8,20 +8,19 @@ import "react-toastify/dist/ReactToastify.css"
 import { useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/system';
 
-function FoodModal({ openFood, handleCloseFood, setOpenFood }) {
-    const [category, setCategory] = useState("")
-    const [name, setName] = useState("")
-    const [perportionrate, setPortionRate] = useState("")
-    const [halfkgRate, setHalfRate] = useState("")
-    const [fullkgRate, setFullRate] = useState("")
+function UpdateFoodModal({ openFoodUpdate, handleCloseFoodUpdate,setOpenFoodUpdate,food ,getFood}) {
+    const [category, setCategory] = useState(food.category ?? "")
+    const [name, setName] = useState(food.name ?? "")
+    const [perportionrate, setPortionRate] = useState(food.perportionrate ?? "")
+    const [halfkgRate, setHalfRate] = useState(food.halfkgRate ?? "")
+    const [fullkgRate, setFullRate] = useState(food.fullkgRate ?? "")
     const navigate = useNavigate();
     useEffect(() => {
         if (!localStorage.getItem("_token"))
             navigate("/")
     }, [navigate])
 
-
-    const create = async () => {
+    const updateFood = async () => {
         if (!category || !perportionrate || !halfkgRate || !fullkgRate) {
             toast.warning('Please Fill all the required fields', {
                 position: "top-right",
@@ -42,14 +41,14 @@ function FoodModal({ openFood, handleCloseFood, setOpenFood }) {
                     "Content-Type": "application/json"
                 }
             };
-            const { data } = await axios.post(
-                "http://localhost:7000/api/product",
+            const { data } = await axios.put(
+                "http://localhost:7000/api/product/" + food._id,
                 { category, fullkgRate, name, perportionrate, halfkgRate },
                 config
             );
-            console.log(data);
+            // console.log(data);
             // alert("Faq created successfully")
-            toast.success('Food created successfully!', {
+            toast.success(data, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -59,7 +58,8 @@ function FoodModal({ openFood, handleCloseFood, setOpenFood }) {
                 progress: undefined,
             });
             // navigate("/faq");
-            setOpenFood(false)
+            setOpenFoodUpdate(false)
+            getFood()
         } catch (error) {
             console.log(error)
             toast.error('Something went wrong,try again!!', {
@@ -90,15 +90,15 @@ function FoodModal({ openFood, handleCloseFood, setOpenFood }) {
     return (
         <div>
             <Modal
-                open={openFood}
-                onClose={handleCloseFood}
+                open={openFoodUpdate}
+                onClose={handleCloseFoodUpdate}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
                 <Box className='modal_main modal_food' p={5}>
-                    <CloseIcon onClick={handleCloseFood} className="modal_icon" />
+                    <CloseIcon onClick={handleCloseFoodUpdate} className="modal_icon" />
                     <form >
-                        <h3 className='headline' style={{ textAlign: "center", color: "black", marginTop: "-40px" }}>Add new Food</h3>
+                        <h3 className='headline' style={{ textAlign: "center", color: "black", marginTop: "-40px" }}>Update Food</h3>
                         <Stack spacing={2}>
                             <FormControl >
                                 <InputLabel id="demo-simple-select-helper-label">Select Category</InputLabel>
@@ -107,7 +107,7 @@ function FoodModal({ openFood, handleCloseFood, setOpenFood }) {
                                     id="demo-simple-select-helper"
                                     className='faq_textfield'
                                     value={category}
-                                    label="Age"
+                                    label="cat"
                                     onChange={(e) => setCategory(e.target.value)}
                                 >
                                     {cat.map((c) => (
@@ -151,9 +151,9 @@ function FoodModal({ openFood, handleCloseFood, setOpenFood }) {
                                 value={fullkgRate}
                                 onChange={(e) => setFullRate(e.target.value)}
                             />
-                            <Button style={{ marginTop: "10px", width: "100%" }} variant="contained" color="success" onClick={create}>
-                                Add
-                            </Button>
+                        <Button style={{ marginTop: "10px", width: "100%" }} variant="contained" color="success" onClick={updateFood}>
+                            Update
+                        </Button>
                         </Stack>
                     </form>
                 </Box>
@@ -164,4 +164,4 @@ function FoodModal({ openFood, handleCloseFood, setOpenFood }) {
     )
 }
 
-export default FoodModal
+export default UpdateFoodModal

@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
-const FaqSchema = new mongoose.Schema({
-    question: {
+const CatSchema = new mongoose.Schema({
+    name: {
         type: String,
         repuired: true,
     },
-    answer: {
+    pic: {
         type: String,
         required: true,
     },
 }, { timestamps: true });
 
-const FaqModel = mongoose.model("Faq", FaqSchema)
-module.exports = FaqModel;
+const CategoryModel = mongoose.model("Category", CatSchema)
+module.exports = CategoryModel;

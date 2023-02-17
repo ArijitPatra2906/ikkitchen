@@ -67,9 +67,20 @@ form {
 
 .blog1 {
     margin-bottom: 50px;
-    height: 500px;
+    height: fit-content;
+    width: 300px;
+    text-align: center;
+    position: relative;
+}
+.icons{
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
+.deleteIcon{
+    color: red;
+}
 .blog_scr2_right {
     margin-top: 100px;
     /* min-height: 400px; */

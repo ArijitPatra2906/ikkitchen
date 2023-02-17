@@ -1,14 +1,14 @@
 const router = require("express").Router();
 
-const Faq = require("../models/FaqModel")
+const Cat = require("../models/CategoryModel")
 
 
-//Create new faq
+//Create new Cat
 router.post("/", async (req, res) => {
-    const newFaq = new Faq(req.body);
+    const newCat = new Cat(req.body);
     try {
-        const savedFaq = await newFaq.save();
-        res.status(200).json(newFaq);
+        const savedCat = await newCat.save();
+        res.status(200).json(newCat);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -17,27 +17,27 @@ router.post("/", async (req, res) => {
 // Get total number
 router.get("/count", async (req, res) => {
     try {
-        const totalFaq = await Faq.countDocuments();
+        const totalCat= await Cat.countDocuments();
 
-        res.status(200).json(totalFaq);
+        res.status(200).json(totalCat);
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
-//Update faq
+//Update Cat
 router.put("/:id", async (req, res) => {
     try {
-        const faq = await Faq.findById(req.params.id);
+        const category = await Cat.findById(req.params.id);
         try {
-            const updatedFaq = await Faq.findByIdAndUpdate(
+            const updatedCat = await Cat.findByIdAndUpdate(
                 req.params.id,
                 {
                     $set: req.body,
                 },
                 { new: true }
             );
-            res.status(200).json("Updated faq!");
+            res.status(200).json("Updated Category!");
         } catch (err) {
             res.status(500).json(err);
         }
@@ -49,11 +49,11 @@ router.put("/:id", async (req, res) => {
 //Delete faq
 router.delete("/:id", async (req, res) => {
     // try {
-    const faq = await Faq.findById(req.params.id);
+    const cat = await Cat.findById(req.params.id);
     // if (faq.username === req.body.username) {
     try {
-        await faq.delete();
-        res.status(200).json("Faq has been deleted!");
+        await cat.delete();
+        res.status(200).json("Categary has been deleted!");
     } catch (err) {
         res.status(500).json(err);
     }
@@ -66,12 +66,12 @@ router.delete("/:id", async (req, res) => {
 });
 
 
-// Get faq
+// Get cat
 router.get("/:id", async (req, res) => {
     try {
-        const faq = await Faq.findById(req.params.id);
+        const cat = await Cat.findById(req.params.id);
 
-        res.status(200).json(faq);
+        res.status(200).json(cat);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -80,9 +80,9 @@ router.get("/:id", async (req, res) => {
 //Get all faq
 router.get("/", async (req, res) => {
     try {
-        const faqs = await Faq.find();
+        const categories = await Cat.find();
 
-        res.status(200).json(faqs)
+        res.status(200).json(categories)
 
     } catch (err) {
         res.status(500).json(err);

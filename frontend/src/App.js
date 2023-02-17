@@ -4,6 +4,7 @@ import LoginView from './view/LoginView';
 import DashboardView from './view/DashboardView';
 import CategoryView from './view/CategoryView';
 import FoodView from './view/FoodView';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/category' element={<CategoryView />} />
         <Route path='/food' element={<FoodView />} />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

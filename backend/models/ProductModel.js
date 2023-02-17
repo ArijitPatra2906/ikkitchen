@@ -1,27 +1,27 @@
 const mongoose = require("mongoose");
 
-const ContactSchema = new mongoose.Schema({
+const ProductSchema = new mongoose.Schema({
+    category: {
+        type: String,
+        required: true,
+    },
     name: {
         type: String,
         required: true,
     },
-    email: {
+    perportionrate: {
         type: String,
         required: true,
     },
-    phone: {
+    halfkgRate: {
         type: String,
         required: true,
     },
-    subject: {
+    fullkgRate: {
         type: String,
         required: true,
-    },
-    message: {
-        type: String,
-        required: true,
-    },
+    }
 }, { timestamps: true });
 
-const ContactModel = mongoose.model("contact", ContactSchema)
-module.exports = ContactModel;
+const Product = mongoose.model("Product", ProductSchema)
+module.exports = Product;

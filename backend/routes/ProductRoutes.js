@@ -1,14 +1,14 @@
 const router = require("express").Router();
 
-const Blog = require("../models/BlogModel");
+const Product = require("../models/ProductModel");
 
 
 //Create new blog
 router.post("/", async (req, res) => {
-    const newBlog = new Blog(req.body);
+    const newProduct = new Product(req.body);
     try {
-        const savedBlog = await newBlog.save();
-        res.status(200).json(newBlog);
+        const savedProduct = await newProduct.save();
+        res.status(200).json(newProduct);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -17,9 +17,9 @@ router.post("/", async (req, res) => {
 // Get total number
 router.get("/count", async (req, res) => {
     try {
-        const totalBlog = await Blog.countDocuments();
+        const totalProduct= await Product.countDocuments();
 
-        res.status(200).json(totalBlog);
+        res.status(200).json(totalProduct);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -28,16 +28,16 @@ router.get("/count", async (req, res) => {
 //Update blog
 router.put("/:id", async (req, res) => {
     try {
-        const blog = await Blog.findById(req.params.id);
+        const product = await Product.findById(req.params.id);
         try {
-            const updatedPost = await Blog.findByIdAndUpdate(
+            const updatedProduct = await Product.findByIdAndUpdate(
                 req.params.id,
                 {
                     $set: req.body,
                 },
                 { new: true }
             );
-            res.status(200).json("Updated blog!");
+            res.status(200).json("Updated product!");
         } catch (err) {
             res.status(500).json(err);
         }
@@ -46,14 +46,14 @@ router.put("/:id", async (req, res) => {
     }
 });
 
-//Delete blog
+//Delete Product
 router.delete("/:id", async (req, res) => {
     try {
-        const blog = await Blog.findById(req.params.id);
+        const product = await Product.findById(req.params.id);
 
         try {
-            await blog.delete();
-            res.status(200).json("Blog has been deleted!");
+            await product.delete();
+            res.status(200).json("Product has been deleted!");
         } catch (err) {
             res.status(500).json(err);
         }
@@ -63,23 +63,23 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
-// Get blog
+// Get Product
 router.get("/:id", async (req, res) => {
     try {
-        const blog = await Blog.findById(req.params.id);
+        const product = await Product.findById(req.params.id);
 
-        res.status(200).json(blog);
+        res.status(200).json(product);
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
-//Get all blogs
+//Get all Products
 router.get("/", async (req, res) => {
     try {
-        const blogs = await Blog.find();
+        const products = await Product.find();
 
-        res.status(200).json(blogs)
+        res.status(200).json(products)
 
     } catch (err) {
         res.status(500).json(err);

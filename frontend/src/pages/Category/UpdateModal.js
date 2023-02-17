@@ -1,76 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import { Box, Modal, TextField } from '@mui/material';
+import React, { useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Button, Modal, TextField } from '@mui/material';
-import "./Category.css"
+import { toast } from 'react-toastify';
 import axios from 'axios';
-import { toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
-import { useNavigate } from 'react-router-dom';
 import LoadingButton from '@mui/lab/LoadingButton';
 
-function FaqModal({ open, handleClose, setOpen, getCat }) {
-    const [name, setName] = useState("")
-    const [pic, setPic] = useState();
+function UpdateModal({ openUpdate, setOpenUpdate, handleOpenUpdate, handleCloseUpdate, cat ,getCat}) {
+
+    const [name, setName] = useState(cat.name ?? "")
+    const [pic, setPic] = useState(cat.pic ?? "");
     const [picLoading, setPicLoading] = useState(false)
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (!localStorage.getItem("_token"))
-            navigate("/")
-    }, [navigate])
-    const create = async () => {
-        if (!name || !pic) {
-            toast.warning('Please Fill all the required fields', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
-            // alert("Please Fill all the required fields")
-            return;
-        }
-        console.log({ name, pic })
-        try {
-
-            const config = {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            };
-            const { data } = await axios.post(
-                "http://localhost:7000/api/cat",
-                { name, pic },
-                config
-            );
-            console.log(data);
-            // alert("Faq created successfully")
-            toast.success('Category created successfully!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            setOpen(false)
-            getCat()
-        } catch (error) {
-            console.log(error)
-            toast.error('Something went wrong,try again!!', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
-        }
-    }
-
 
     const postDetails = (pics) => {
         setPicLoading(true);
@@ -125,19 +64,71 @@ function FaqModal({ open, handleClose, setOpen, getCat }) {
         }
     };
 
+    const updateCat = async () => {
+        if (!name || !pic) {
+            toast.warning('Please Fill all the required fields', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
+            // alert("Please Fill all the required fields")
+            return;
+        }
+        try {
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            };
+            const { data } = await axios.put(
+                "http://localhost:7000/api/cat/" + cat._id,
+                { name, pic },
+                config
+            );
+            console.log(data);
+            // alert("Faq created successfully")
+            toast.success('Category updated successfully!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setOpenUpdate(false)
+            getCat()
+        } catch (error) {
+            console.log(error)
+            toast.error('Something went wrong,try again!!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
+        }
+    }
 
     return (
         <div>
             <Modal
-                open={open}
-                onClose={handleClose}
+                open={openUpdate}
+                onClose={handleCloseUpdate}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box className='modal_main modal_cat' p={5}>
-                    <CloseIcon onClick={handleClose} className="modal_icon" />
+                <Box className='modal_main modal_cat_update' p={5}>
+                    <CloseIcon onClick={handleCloseUpdate} className="modal_icon" />
                     <form >
-                        <h3 className='headline' style={{ textAlign: "center", color: "black", marginTop: "-40px" }}>Add new Category</h3>
+                        <h3 className='headline' style={{ textAlign: "center", color: "black", marginTop: "-40px" }}>Update Category</h3>
                         <TextField
                             required
                             className='faq_textfield'
@@ -148,20 +139,22 @@ function FaqModal({ open, handleClose, setOpen, getCat }) {
                             onChange={(e) => setName(e.target.value)}
                         />
                         <br />
+                        <img className='updateCatImg' src={pic} alt="" />
+                        <br />
                         <input type="file"
+                            // value={pic}
                             onChange={(e) => postDetails(e.target.files[0])}
                             style={{ margin: "5px", width: "400px" }}
                         />
                         <br />
-                        <LoadingButton loading={picLoading} style={{ margin: "5px", width: "100%" }} variant="contained" onClick={create} color='success'>
-                            Submit
+                        <LoadingButton loading={picLoading} style={{ margin: "5px", width: "100%" }} variant="contained" color="success" onClick={updateCat}>
+                            Update
                         </LoadingButton>
                     </form>
                 </Box>
             </Modal>
-
         </div>
     )
 }
 
-export default FaqModal
+export default UpdateModal

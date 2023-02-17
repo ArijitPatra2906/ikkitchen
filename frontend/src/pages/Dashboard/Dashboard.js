@@ -8,10 +8,8 @@ import "./Dashboard.css"
 
 function Dashboard() {
 
-    const [totalCourse, setTotalCourse] = useState("");
-    const [totalContact, setTotalContact] = useState("");
-    const [totalBlogs, setTotalBlogs] = useState("");
-    const [totalFaq, setTotalFaq] = useState("");
+    const [totalFood, setTotalFood] = useState("");
+    const [totalCategory, setTotalCategory] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -22,22 +20,14 @@ function Dashboard() {
     useEffect(() => {
         const getAllCardData = async () => {
             setLoading(true);
-            const result = await axios.get("https://jeevmokshayogaadminportal.herokuapp.com/api/booking/count");
-            const result2 = await axios.get("https://jeevmokshayogaadminportal.herokuapp.com/api/contact/count");
-            const result3 = await axios.get("https://jeevmokshayogaadminportal.herokuapp.com/api/blogs/count");
-            const result4 = await axios.get("https://jeevmokshayogaadminportal.herokuapp.com/api/faq/count");
-            setTotalCourse(result.data)
-            setTotalContact(result2.data)
-            setTotalBlogs(result3.data)
-            setTotalFaq(result4.data)
+            const result = await axios.get("http://localhost:7000/api/product/count");
+            const result2 = await axios.get("http://localhost:7000/api/cat/count");
+            setTotalFood(result.data)
+            setTotalCategory(result2.data)
             setLoading(false);
-            console.log(totalCourse)
-            console.log(totalContact)
-            console.log(totalBlogs)
-            console.log(totalFaq)
         };
         getAllCardData()
-    }, [totalBlogs, totalContact, totalCourse, totalFaq])
+    }, [])
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -45,77 +35,41 @@ function Dashboard() {
                 <Grid className='dashboard_container' item xs={12}>
                     <Typography fontSize="26px" mt={4} pb={3} fontWeight="700">Dashboard</Typography>
                     {loading === true ? (<div style={{ marginTop: "50px" }}>
-                        <CircularProgress size={70} color="inherit" />
+                        <CircularProgress size={70} color="success" />
                     </div>) : (
                         <Box className="dashMain">
                             <Card sx={{
-                                minWidth: 356, height: 150, background: "#af8043",
+                                minWidth: 356, height: 150, background: "#2f7056",
                                 boxShadow: "2px 3px 3px 2px rgb(190, 167, 123)",
                                 borderRadius: 3,
                                 cursor: "pointer",
                             }}>
                                 <CardContent>
-                                    <Link to="/courseinfo" style={{ textDecoration: "none" }}>
-                                        <Typography fontWeight="700" sx={{ fontSize: 28, mt: 2 }} color="#3a3731" gutterBottom>
-                                            Total Course Queries
+                                    <Link to="/food" style={{ textDecoration: "none" }}>
+                                        <Typography fontWeight="700" sx={{ fontSize: 28, mt: 2 }} color="#fff" gutterBottom>
+                                            Total Food Items
                                         </Typography>
 
                                     </Link>
-                                    <Typography fontWeight="700" fontSize={26} color="#3a3731">
-                                        {totalCourse}
+                                    <Typography fontWeight="700" fontSize={26} color="#fff">
+                                        {totalFood}
                                     </Typography>
                                 </CardContent>
                             </Card>
                             <Card sx={{
-                                minWidth: 356, height: 150, background: "#af8043",
+                                minWidth: 356, height: 150, background: "#2f7056",
                                 cursor: "pointer",
                                 boxShadow: "2px 3px 3px 2px rgb(190, 167, 123)",
                                 borderRadius: 3
                             }}>
                                 <CardContent>
-                                    <Link to="/contact" style={{ textDecoration: "none" }}>
-                                        <Typography fontWeight="700" sx={{ fontSize: 28, mt: 2 }} color="#3a3731" gutterBottom>
-                                            Total Contacts
+                                    <Link to="/category" style={{ textDecoration: "none" }}>
+                                        <Typography fontWeight="700" sx={{ fontSize: 28, mt: 2 }} color="#fff" gutterBottom>
+                                            Total Categories
                                         </Typography>
                                     </Link>
-                                    <Typography fontWeight="700" fontSize={26} color="#3a3731">
-                                        {totalContact}
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                            <Card sx={{
-                                minWidth: 356, height: 150, background: "#af8043",
-                                cursor: "pointer",
-                                boxShadow: "2px 3px 3px 2px rgb(190, 167, 123)",
-                                borderRadius: 3
-                            }}>
-                                <CardContent>
-                                    <Link to="/blog" style={{ textDecoration: "none" }}>
-                                        <Typography fontWeight="700" sx={{ fontSize: 28, mt: 2 }} color="#3a3731" gutterBottom>
-                                            Total Blogs
-                                        </Typography>
-
-                                    </Link>
-                                    <Typography fontWeight="700" fontSize={26} color="#3a3731">
-                                        {totalBlogs}
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                            <Card sx={{
-                                minWidth: 356, height: 150, background: "#af8043",
-                                cursor: "pointer",
-                                boxShadow: "2px 3px 3px 2px rgb(190, 167, 123)",
-                                borderRadius: 3
-                            }}>
-                                <CardContent>
-                                    <Link to="/faq" style={{ textDecoration: "none" }}>
-                                        <Typography fontWeight="700" sx={{ fontSize: 28, mt: 2 }} color="#3a3731" gutterBottom>
-                                            Total Faqs
-                                        </Typography>
-
-                                    </Link>
-                                    <Typography fontWeight="700" fontSize={26} color="#3a3731">
-                                        {totalFaq}
+                                    <Typography fontWeight="700" fontSize={26} color="#fff">
+                                        {totalCategory}
                                     </Typography>
                                 </CardContent>
                             </Card>
