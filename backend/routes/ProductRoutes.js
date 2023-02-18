@@ -74,6 +74,15 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+router.post("/cat", async (req, res) => {
+    try {
+        const product = await Product.find({category:req.body.category});
+        res.status(200).json(product);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 //Get all Products
 router.get("/", async (req, res) => {
     try {

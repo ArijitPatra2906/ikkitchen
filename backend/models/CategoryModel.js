@@ -9,6 +9,10 @@ const CatSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    userId :{
+        type: String,
+        required: true,
+    }
 }, { timestamps: true });
 
 const CategoryModel = mongoose.model("Category", CatSchema)

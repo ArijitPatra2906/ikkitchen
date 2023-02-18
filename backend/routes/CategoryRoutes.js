@@ -46,7 +46,7 @@ router.put("/:id", async (req, res) => {
     }
 });
 
-//Delete faq
+//Delete cat
 router.delete("/:id", async (req, res) => {
     // try {
     const cat = await Cat.findById(req.params.id);
@@ -77,7 +77,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-//Get all faq
+//Get all cat
 router.get("/", async (req, res) => {
     try {
         const categories = await Cat.find();

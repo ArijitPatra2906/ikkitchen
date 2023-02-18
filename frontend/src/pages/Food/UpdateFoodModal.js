@@ -8,17 +8,13 @@ import "react-toastify/dist/ReactToastify.css"
 import { useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/system';
 
-function UpdateFoodModal({ openFoodUpdate, handleCloseFoodUpdate,setOpenFoodUpdate,food ,getFood}) {
+function UpdateFoodModal({ openFoodUpdate, handleCloseFoodUpdate, setOpenFoodUpdate, food, getFood }) {
     const [category, setCategory] = useState(food.category ?? "")
     const [name, setName] = useState(food.name ?? "")
     const [perportionrate, setPortionRate] = useState(food.perportionrate ?? "")
     const [halfkgRate, setHalfRate] = useState(food.halfkgRate ?? "")
     const [fullkgRate, setFullRate] = useState(food.fullkgRate ?? "")
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (!localStorage.getItem("_token"))
-            navigate("/")
-    }, [navigate])
+    const [halfOfHalfkgRate, setHalfOfHalfRate] = useState(food.halfOfHalfkgRate ?? "")
 
     const updateFood = async () => {
         if (!category || !perportionrate || !halfkgRate || !fullkgRate) {
@@ -124,15 +120,28 @@ function UpdateFoodModal({ openFoodUpdate, handleCloseFoodUpdate,setOpenFoodUpda
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
-                            <TextField
-                                required
-                                className='faq_textfield'
-                                type="text"
-                                label="Per Portion Rate"
-                                variant="outlined"
-                                value={perportionrate}
-                                onChange={(e) => setPortionRate(e.target.value)}
-                            />
+                            {category === ("Biriyani" || "Desserts") ? (
+                                <TextField
+                                    required
+                                    className='faq_textfield'
+                                    type="text"
+                                    label="Per Portion Rate"
+                                    variant="outlined"
+                                    value={perportionrate}
+                                    onChange={(e) => setPortionRate(e.target.value)}
+                                />
+                            ) : ("")}
+                            {category === "Spices" ? (
+                                <TextField
+                                    required
+                                    className='faq_textfield'
+                                    type="text"
+                                    label="250gm Rate"
+                                    variant="outlined"
+                                    value={halfOfHalfkgRate}
+                                    onChange={(e) => setHalfOfHalfRate(e.target.value)}
+                                />
+                            ) : ("")}
                             <TextField
                                 required
                                 className='faq_textfield'
@@ -151,9 +160,9 @@ function UpdateFoodModal({ openFoodUpdate, handleCloseFoodUpdate,setOpenFoodUpda
                                 value={fullkgRate}
                                 onChange={(e) => setFullRate(e.target.value)}
                             />
-                        <Button style={{ marginTop: "10px", width: "100%" }} variant="contained" color="success" onClick={updateFood}>
-                            Update
-                        </Button>
+                            <Button style={{ marginTop: "10px", width: "100%" }} variant="contained" color="success" onClick={updateFood}>
+                                Update
+                            </Button>
                         </Stack>
                     </form>
                 </Box>

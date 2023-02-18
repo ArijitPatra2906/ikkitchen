@@ -11,7 +11,9 @@ const ProductSchema = new mongoose.Schema({
     },
     perportionrate: {
         type: String,
-        required: true,
+    },
+    halfOfHalfkgRate: {
+        type: String,
     },
     halfkgRate: {
         type: String,
@@ -20,7 +22,12 @@ const ProductSchema = new mongoose.Schema({
     fullkgRate: {
         type: String,
         required: true,
+    },
+    userId:{
+        type: String,
+        required: true,
     }
+
 }, { timestamps: true });
 
 const Product = mongoose.model("Product", ProductSchema)

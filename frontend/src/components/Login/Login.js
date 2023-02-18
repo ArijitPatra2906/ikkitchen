@@ -53,7 +53,7 @@ function Login() {
                 progress: undefined,
             });
             console.log(data)
-            localStorage.setItem("_token", JSON.stringify(data.token));
+            localStorage.setItem("userInfo", JSON.stringify(data));
             setPicLoading(false);
             navigate("/dashboard");
         } catch (error) {

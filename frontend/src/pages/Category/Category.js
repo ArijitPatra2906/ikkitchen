@@ -27,10 +27,11 @@ function Faq() {
     };
     const [category, setCategory] = useState([])
     const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem("userInfo"));
     useEffect(() => {
-        if (!localStorage.getItem("_token"))
+        if (!user)
             navigate("/")
-    }, [navigate])
+    }, [navigate, user])
     const [cat, setCat] = useState({})
 
     const getCat = async () => {
@@ -94,9 +95,15 @@ function Faq() {
                                 <div className="category" >
                                     <img src={f.pic} alt="" />
                                     <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                                        <Typography fontSize="20px" textTransform="capitalize" color="black" mt={3} mb={3}>{f.name}</Typography>
-                                        <EditIcon style={{ cursor: "pointer" }} onClick={() => handle(f)} />
-                                        <DeleteIcon style={{ cursor: "pointer" }} onClick={() => handleDelete(f._id)} />
+                                        <Link to={`/category/${f._id}`} style={{ textDecoration: "none" }}>
+                                            <Typography fontSize="20px" textTransform="capitalize" color="black" mt={3} mb={3}>{f.name}</Typography>
+                                        </Link>
+                                        {f.userId === user._id ? (
+                                            <>
+                                                <EditIcon style={{ cursor: "pointer" }} onClick={() => handle(f)} />
+                                                <DeleteIcon style={{ cursor: "pointer" }} onClick={() => handleDelete(f._id)} />
+                                            </>
+                                        ) : ("")}
                                     </div>
                                 </div>
                             ))}

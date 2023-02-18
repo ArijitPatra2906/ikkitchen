@@ -8,21 +8,19 @@ import "react-toastify/dist/ReactToastify.css"
 import { useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/system';
 
-function FoodModal({ openFood, handleCloseFood, setOpenFood }) {
+function FoodModal({ openFood, handleCloseFood, setOpenFood,getFood }) {
     const [category, setCategory] = useState("")
     const [name, setName] = useState("")
     const [perportionrate, setPortionRate] = useState("")
     const [halfkgRate, setHalfRate] = useState("")
     const [fullkgRate, setFullRate] = useState("")
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (!localStorage.getItem("_token"))
-            navigate("/")
-    }, [navigate])
+    const [halfOfHalfkgRate, setHalfOfHalfRate] = useState("")
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+
 
 
     const create = async () => {
-        if (!category || !perportionrate || !halfkgRate || !fullkgRate) {
+        if (!category || !halfkgRate || !fullkgRate) {
             toast.warning('Please Fill all the required fields', {
                 position: "top-right",
                 autoClose: 3000,
@@ -44,10 +42,11 @@ function FoodModal({ openFood, handleCloseFood, setOpenFood }) {
             };
             const { data } = await axios.post(
                 "http://localhost:7000/api/product",
-                { category, fullkgRate, name, perportionrate, halfkgRate },
+                { category, fullkgRate, name, perportionrate, halfkgRate, halfOfHalfkgRate, userId: user._id },
                 config
             );
             console.log(data);
+            getFood()
             // alert("Faq created successfully")
             toast.success('Food created successfully!', {
                 position: "top-right",
@@ -124,15 +123,28 @@ function FoodModal({ openFood, handleCloseFood, setOpenFood }) {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
-                            <TextField
-                                required
-                                className='faq_textfield'
-                                type="text"
-                                label="Per Portion Rate"
-                                variant="outlined"
-                                value={perportionrate}
-                                onChange={(e) => setPortionRate(e.target.value)}
-                            />
+                            {category === ("Biriyani" || "Desserts") ? (
+                                <TextField
+                                    required
+                                    className='faq_textfield'
+                                    type="text"
+                                    label="Per Portion Rate"
+                                    variant="outlined"
+                                    value={perportionrate}
+                                    onChange={(e) => setPortionRate(e.target.value)}
+                                />
+                            ) : ("")}
+                            {category === "Spices" ? (
+                                <TextField
+                                    required
+                                    className='faq_textfield'
+                                    type="text"
+                                    label="250gm Rate"
+                                    variant="outlined"
+                                    value={halfOfHalfkgRate}
+                                    onChange={(e) => setHalfOfHalfRate(e.target.value)}
+                                />
+                            ) : ("")}
                             <TextField
                                 required
                                 className='faq_textfield'

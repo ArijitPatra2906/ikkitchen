@@ -4,11 +4,9 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import QuizIcon from '@mui/icons-material/Quiz';
-import PostAddIcon from '@mui/icons-material/PostAdd';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import { Link, useNavigate } from "react-router-dom"
-import logo from "../../assets/logo.png"
+import EmailIcon from '@mui/icons-material/Email';
 
 
 function Sidebar() {
@@ -18,6 +16,7 @@ function Sidebar() {
         localStorage.removeItem("_token")
         navigate("/")
     };
+    const user = JSON.parse(localStorage.getItem("userInfo"));
     return (
         <div className='sidebar'>
             <div className="top">
@@ -59,10 +58,15 @@ function Sidebar() {
                         </li>
                     </Link> */}
                     <p className="title">USER</p>
-                    {/* <li>
+                    <li>
                         <AccountCircleOutlinedIcon className="icon" />
-                        <span>Profile</span>
-                    </li> */}
+                        <span style={{textTransform:"capitalize"}}>{user.username}</span>
+                    </li>
+                    <li>
+                        <EmailIcon className="icon" />
+                        <span>{user.email}</span>
+                    </li>
+
                     <li onClick={handleLogout}>
                         <ExitToAppIcon className="icon" />
                         <span>Logout</span>

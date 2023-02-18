@@ -14,7 +14,7 @@ function Dashboard() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!localStorage.getItem("_token"))
+        if (!localStorage.getItem("userInfo"))
             navigate("/")
     }, [navigate])
     useEffect(() => {

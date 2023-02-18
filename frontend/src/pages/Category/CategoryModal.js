@@ -12,11 +12,7 @@ function FaqModal({ open, handleClose, setOpen, getCat }) {
     const [name, setName] = useState("")
     const [pic, setPic] = useState();
     const [picLoading, setPicLoading] = useState(false)
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (!localStorage.getItem("_token"))
-            navigate("/")
-    }, [navigate])
+    const user = JSON.parse(localStorage.getItem("userInfo"))
     const create = async () => {
         if (!name || !pic) {
             toast.warning('Please Fill all the required fields', {
@@ -41,7 +37,7 @@ function FaqModal({ open, handleClose, setOpen, getCat }) {
             };
             const { data } = await axios.post(
                 "http://localhost:7000/api/cat",
-                { name, pic },
+                { name, pic, userId: user._id },
                 config
             );
             console.log(data);
@@ -154,7 +150,7 @@ function FaqModal({ open, handleClose, setOpen, getCat }) {
                         />
                         <br />
                         <LoadingButton loading={picLoading} style={{ margin: "5px", width: "100%" }} variant="contained" onClick={create} color='success'>
-                            Submit
+                            Add
                         </LoadingButton>
                     </form>
                 </Box>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./Food.css"
-import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from '@mui/material'
+import { Box, Button, Card, CardActionArea, CardContent, CardMedia, CircularProgress, Grid, Stack, Typography } from '@mui/material'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
@@ -16,10 +16,12 @@ function Food() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
+    const user = JSON.parse(localStorage.getItem("userInfo"));
     useEffect(() => {
-        if (!localStorage.getItem("_token"))
+        if (!user)
             navigate("/")
-    }, [navigate])
+    }, [navigate, user])
+
     const getFoods = async () => {
         try {
             setLoading(true)
@@ -33,7 +35,7 @@ function Food() {
     };
     useEffect(() => {
         getFoods()
-    })
+    }, [])
     const [openFood, setOpenFood] = useState(false);
     const [uFood, setUFood] = useState(false);
 
@@ -82,42 +84,59 @@ function Food() {
                         </Button>
                         <Typography fontSize="30px" mt={3} mb={3}>All Foods</Typography>
                     </div>
-                    
-                    <Grid className='blog_screen_2' item xs={12} >
-                       
-                        <Box className="blog_Sec_card">
-                            {food && food?.map((b) => (
-                                <Box className='blog1'>
-                                    <Card sx={{ maxWidth: 300, height: "fit-content", bgcolor: "#ffffb3" }} >
-                                        <CardActionArea >
-                                            <CardContent >
-                                                <Typography fontFamily="inter" gutterBottom variant="h7" fontSize="18px" fontWeight="600" lineHeight={1.5} color="black" textAlign="left" component="div">
-                                                    Category : {b.category}
-                                                </Typography>
-                                                <Typography fontFamily="inter" mt={1.5} fontSize="16px" color="black" textAlign="left" letterSpacing={1} fontWeight="500" variant="body2">
-                                                    {b.name}
-                                                </Typography>
-                                                <Typography mt={1.5} fontSize="12px" color="black" textAlign="left" letterSpacing={1} fontWeight="500" variant="body2">
-                                                    Perportion Rate : {b.perportionrate}
-                                                </Typography>
-                                                <Typography mt={1.5} fontSize="12px" color="black" textAlign="left" letterSpacing={1} fontWeight="500" variant="body2">
-                                                    500GM Rate : {b.halfkgRate}
-                                                </Typography>
-                                                <Typography mt={1.5} fontSize="12px" color="black" textAlign="left" letterSpacing={1} fontWeight="500" variant="body2">
-                                                    1KG Rate : {b.fullkgRate}
-                                                </Typography>
-                                            </CardContent>
-                                            <div className='icons'>
-                                                <EditIcon onClick={() => handle(b)}/>
-                                                <DeleteIcon className='deleteIcon' onClick={() => handleDelete(b._id)} />
-                                            </div>
-                                        </CardActionArea>
-                                    </Card>
-                                </Box>
-                            ))}
-                        </Box>
-                    </Grid>
-                    {openFood && <FoodModal openFood={openFood} setOpenFood={setOpenFood} handleCloseFood={handleCloseFood} handleOpenFood={handleOpenFood} />}
+
+                    {loading ? (
+                        <Stack alignItems="center" mt={6}>
+                            <CircularProgress size={70} color="success" />
+                        </Stack>
+                    ) : (
+                        <div className='blog_screen_2' >
+                            <Box className="blog_Sec_card">
+                                {food && food?.map((b) => (
+                                    <Box className='blog1'>
+                                        <Card sx={{ maxWidth: 300, height: "180px", bgcolor: "#ffffb3" }} >
+                                            <CardActionArea >
+                                                <CardContent >
+                                                    <Typography fontFamily="inter" gutterBottom variant="h7" fontSize="18px" fontWeight="600" lineHeight={1.5} color="black" textAlign="left" component="div">
+                                                        Category : {b.category}
+                                                    </Typography>
+                                                    <Typography fontFamily="inter" mt={1.5} fontSize="16px" color="black" textAlign="left" letterSpacing={1} fontWeight="500" variant="body2">
+                                                        {b.name}
+                                                    </Typography>
+                                                    {b.perportionrate?.length > 0 ? (
+                                                        <Typography mt={1.5} fontSize="12px" color="black" textAlign="left" letterSpacing={1} fontWeight="500" variant="body2">
+                                                            Perportion Rate : {b.perportionrate}
+                                                        </Typography>
+                                                    ) : ("")}
+                                                    {b.halfOfHalfkgRate?.length > 0 ? (
+                                                        <Typography mt={1.5} fontSize="12px" color="black" textAlign="left" letterSpacing={1} fontWeight="500" variant="body2">
+                                                            250GM Rate : {b.halfOfHalfkgRate}
+                                                        </Typography>
+                                                    ) : ("")}
+                                                    <Typography mt={1.5} fontSize="12px" color="black" textAlign="left" letterSpacing={1} fontWeight="500" variant="body2">
+                                                        500GM Rate : {b.halfkgRate}
+                                                    </Typography>
+                                                    <Typography mt={1.5} fontSize="12px" color="black" textAlign="left" letterSpacing={1} fontWeight="500" variant="body2">
+                                                        1KG Rate : {b.fullkgRate}
+                                                    </Typography>
+                                                </CardContent>
+                                                {b.userId === user._id ? (
+                                                    <div className='icons'>
+                                                    <EditIcon onClick={() => handle(b)} />
+                                                    <DeleteIcon className='deleteIcon' onClick={() => handleDelete(b._id)} />
+                                                </div>
+                                                ):(
+                                                    ""
+                                                )}
+                                                
+                                            </CardActionArea>
+                                        </Card>
+                                    </Box>
+                                ))}
+                            </Box>
+                        </div>
+                    )}
+                    {openFood && <FoodModal openFood={openFood} getFood={getFoods} setOpenFood={setOpenFood} handleCloseFood={handleCloseFood} handleOpenFood={handleOpenFood} />}
                     {openFoodUpdate && <UpdateFoodModal getFood={getFoods} food={uFood} openFoodUpdate={openFoodUpdate} setOpenFoodUpdate={setOpenFoodUpdate} handleCloseFoodUpdate={handleCloseFoodUpdate} handleOpenFoodUpdate={handleOpenFoodUpdate} />}
                 </Grid>
             </Grid>

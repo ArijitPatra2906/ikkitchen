@@ -36,7 +36,7 @@ form {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    padding-top: 70px;
+    padding-top: 20px;
     justify-content: center;
     align-items: center;
     /* background: #e9e6e3; */
@@ -66,8 +66,8 @@ form {
 }
 
 .blog1 {
-    margin-bottom: 50px;
-    height: fit-content;
+    /* margin-bottom: 10px; */
+    height: 200px;
     width: 300px;
     text-align: center;
     position: relative;
@@ -163,7 +163,7 @@ form {
 }
 
 .modal_food{
-    height: 400px;
+    height: fit-content;
 }
 
 
