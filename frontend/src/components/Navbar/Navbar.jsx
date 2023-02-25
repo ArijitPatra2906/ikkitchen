@@ -5,11 +5,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import QuizIcon from '@mui/icons-material/Quiz';
-import PostAddIcon from '@mui/icons-material/PostAdd';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import { Link, useNavigate } from "react-router-dom"
-import logo from "../../assets/logo.png"
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import EmailIcon from '@mui/icons-material/Email';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
 function Navbar() {
 
@@ -23,6 +23,7 @@ function Navbar() {
         localStorage.removeItem("userInfo")
         navigate("/")
     };
+    const user = JSON.parse(localStorage.getItem("userInfo"));
 
     return (
         <div className='navbar'>
@@ -43,31 +44,33 @@ function Navbar() {
                                 <span>Dashboard</span>
                             </li>
                         </Link>
-                        <Link to="/contact" style={{ textDecoration: "none" }}>
+                        <Link to="/category" style={{ textDecoration: "none" }}>
                             <li>
                                 <ContactPageIcon className="icon" />
+                                <span>Categories</span>
+                            </li>
+                        </Link>
+                        <Link to="/contact" style={{ textDecoration: "none" }}>
+                            <li>
+                                <PostAddIcon className="icon" />
                                 <span>Contact</span>
                             </li>
                         </Link>
-                        <Link to="/courseinfo" style={{ textDecoration: "none" }}>
+                        <Link to="/food" style={{ textDecoration: "none" }}>
                             <li>
                                 <CreditCardIcon className="icon" />
-                                <span>Course Queries</span>
-                            </li>
-                        </Link>
-                        <Link to="/blog" style={{ textDecoration: "none" }}>
-                            <li>
-                                <PostAddIcon className="icon" />
-                                <span>Blog</span>
-                            </li>
-                        </Link>
-                        <Link to="/faq" style={{ textDecoration: "none" }}>
-                            <li>
-                                <QuizIcon className="icon" />
-                                <span>Faq</span>
+                                <span>Food Items</span>
                             </li>
                         </Link>
                         <p className="title">USER</p>
+                        <li>
+                        <AccountCircleOutlinedIcon className="icon" />
+                        <span style={{textTransform:"capitalize"}}>{user.username}</span>
+                    </li>
+                    <li>
+                        <EmailIcon className="icon" />
+                        <span>{user.email}</span>
+                    </li>
                         <li onClick={handleLogout}>
                             <ExitToAppIcon className="icon" />
                             <span>Logout</span>

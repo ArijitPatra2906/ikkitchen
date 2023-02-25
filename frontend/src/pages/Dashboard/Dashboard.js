@@ -20,8 +20,8 @@ function Dashboard() {
     useEffect(() => {
         const getAllCardData = async () => {
             setLoading(true);
-            const result = await axios.get("http://localhost:7000/api/product/count");
-            const result2 = await axios.get("http://localhost:7000/api/cat/count");
+            const result = await axios.get(`${process.env.REACT_APP_BASEURL}/api/product/count`,            );
+            const result2 = await axios.get(`${process.env.REACT_APP_BASEURL}/api/cat/count`);
             setTotalFood(result.data)
             setTotalCategory(result2.data)
             setLoading(false);

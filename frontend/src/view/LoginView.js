@@ -4,7 +4,7 @@ import { Typography } from '@mui/material'
 
 function LoginView() {
     return (
-        <div style={{ display: "flex",alignItems:"center",backgroundColor:"#f7f7f7"}}>
+        <div className='home' style={{ display: "flex",alignItems:"center",backgroundColor:"#f7f7f7"}}>
             <div className='homeleft'>
                 <Typography variant='h3' alignItems="center" mb={3} textAlign="center">Login</Typography>
                 <Login />

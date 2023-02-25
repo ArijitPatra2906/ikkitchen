@@ -20,19 +20,19 @@ function FoodModal({ openFood, handleCloseFood, setOpenFood,getFood }) {
 
 
     const create = async () => {
-        if (!category || !halfkgRate || !fullkgRate) {
-            toast.warning('Please Fill all the required fields', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
-            // alert("Please Fill all the required fields")
-            return;
-        }
+        // if (!category || !halfkgRate || !fullkgRate) {
+        //     toast.warning('Please Fill all the required fields', {
+        //         position: "top-right",
+        //         autoClose: 3000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //     })
+        //     // alert("Please Fill all the required fields")
+        //     return;
+        // }
         try {
 
             const config = {
@@ -41,7 +41,7 @@ function FoodModal({ openFood, handleCloseFood, setOpenFood,getFood }) {
                 }
             };
             const { data } = await axios.post(
-                "http://localhost:7000/api/product",
+                `${process.env.REACT_APP_BASEURL}/api/product`,
                 { category, fullkgRate, name, perportionrate, halfkgRate, halfOfHalfkgRate, userId: user._id },
                 config
             );
@@ -76,7 +76,7 @@ function FoodModal({ openFood, handleCloseFood, setOpenFood,getFood }) {
     useEffect(() => {
         const getCat = async () => {
             try {
-                const result = await axios.get("http://localhost:7000/api/cat");
+                const result = await axios.get(`${process.env.REACT_APP_BASEURL}/api/cat`);
                 setCat(result.data)
                 // console.log(category)
             } catch (error) {

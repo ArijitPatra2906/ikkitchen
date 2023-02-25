@@ -37,7 +37,9 @@ function Faq() {
     const getCat = async () => {
         try {
             setLoading(true)
-            const result = await axios.get("http://localhost:7000/api/cat");
+            const result = await axios.get(
+            `${process.env.REACT_APP_BASEURL}/api/cat`
+            );
             setCategory(result.data)
             setLoading(false)
         } catch (error) {
@@ -54,7 +56,7 @@ function Faq() {
     }
     const handleDelete = async (id) => {
         try {
-            await axios.delete("http://localhost:7000/api/cat/" + id);
+            await axios.delete(`${process.env.REACT_APP_BASEURL}/api/cat/`+ id);
             toast.success('Category deleted successfully!', {
                 position: "top-right",
                 autoClose: 5000,
@@ -95,9 +97,9 @@ function Faq() {
                                 <div className="category" >
                                     <img src={f.pic} alt="" />
                                     <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                                        <Link to={`/category/${f._id}`} style={{ textDecoration: "none" }}>
+                                        {/* <Link to={`/category/${f._id}`} style={{ textDecoration: "none" }}> */}
                                             <Typography fontSize="20px" textTransform="capitalize" color="black" mt={3} mb={3}>{f.name}</Typography>
-                                        </Link>
+                                        {/* </Link> */}
                                         {f.userId === user._id ? (
                                             <>
                                                 <EditIcon style={{ cursor: "pointer" }} onClick={() => handle(f)} />

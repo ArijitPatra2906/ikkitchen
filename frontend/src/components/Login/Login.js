@@ -39,7 +39,8 @@ function Login() {
                 },
             };
             const { data } = await axios.post(
-                "/api/auth/login",
+                `${process.env.REACT_APP_BASEURL}/api/auth/login`,
+                // "/api/auth/login",
                 { email, password },
                 config
             );
@@ -73,69 +74,127 @@ function Login() {
 
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={3}>
-                <Grid className='blog_container' item xs={12}>
-                    <Box className="loginForm">
-                        <form>
-                            <Stack spacing={2}>
-                                <TextField
-                                    name="email"
-                                    placeholder="Email"
-                                    type="email"
-                                    // fullWidth
-                                    sx={{width:"500px"}}
-                                    required
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <EmailIcon />
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
-                                <TextField
-                                    autoComplete="on"
-                                    name="password"
-                                    password="password"
-                                    required
-                                    placeholder="Password"
-                                    type={showPassword ? "text" : "password"}
-                                    // fullWidth
-                                    sx={{width:"500px",marginBottom:"30px"}}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <PasswordIcon />
-                                            </InputAdornment>
-                                        ),
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                >
-                                                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
-                            </Stack>
-                            <Button className="loginBttn"
-                            sx={{marginTop:"30px"}}
-                                isLoading={picLoading}
-                                onClick={submitHandler} variant="contained" color="primary">
-                                {picLoading ? "Loading..." : "Login"}
-                            </Button>
-                        </form>
-                    </Box>
+        <>
+            <Box sx={{ flexGrow: 1, display: { md: "block", xs: "none" } }}>
+                <Grid container spacing={3}>
+                    <Grid className='blog_container' item xs={12}>
+                        <Box className="loginForm">
+                            <form>
+                                <Stack spacing={2}>
+                                    <TextField
+                                        name="email"
+                                        placeholder="Email"
+                                        type="email"
+                                        // fullWidth
+                                        sx={{ width: "500px" }}
+                                        required
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <EmailIcon />
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                    />
+                                    <TextField
+                                        autoComplete="on"
+                                        name="password"
+                                        password="password"
+                                        required
+                                        placeholder="Password"
+                                        type={showPassword ? "text" : "password"}
+                                        // fullWidth
+                                        sx={{ width: "500px", marginBottom: "30px" }}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <PasswordIcon />
+                                                </InputAdornment>
+                                            ),
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        onClick={handleClickShowPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                    >
+                                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                    />
+                                </Stack>
+                                <Button className="loginBttn"
+                                    sx={{ marginTop: "30px" }}
+                                    isLoading={picLoading}
+                                    onClick={submitHandler} variant="contained" color="primary">
+                                    {picLoading ? "Loading..." : "Login"}
+                                </Button>
+                            </form>
+                        </Box>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <ToastContainer />
-        </Box>
+                <ToastContainer />
+            </Box>
+            <Box sx={{display: { md: "none", xs: "block" }}}>
+                <form>
+                    <Stack spacing={2}>
+                        <TextField
+                            name="email"
+                            placeholder="Email"
+                            type="email"
+                            // fullWidth
+                            sx={{ width: "350px" }}
+                            required
+                            onChange={(e) => setEmail(e.target.value)}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <EmailIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                        <TextField
+                            autoComplete="on"
+                            name="password"
+                            password="password"
+                            required
+                            placeholder="Password"
+                            type={showPassword ? "text" : "password"}
+                            // fullWidth
+                            sx={{ width: "350px", marginBottom: "30px" }}
+                            onChange={(e) => setPassword(e.target.value)}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <PasswordIcon />
+                                    </InputAdornment>
+                                ),
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                        >
+                                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                    </Stack>
+                    <Button className="loginBttn"
+                        sx={{ marginTop: "30px" }}
+                        isLoading={picLoading}
+                        onClick={submitHandler} variant="contained" color="primary">
+                        {picLoading ? "Loading..." : "Login"}
+                    </Button>
+                </form>
+            </Box>
+        </>
     )
 }
 

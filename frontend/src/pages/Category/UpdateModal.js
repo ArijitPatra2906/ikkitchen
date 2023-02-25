@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import LoadingButton from '@mui/lab/LoadingButton';
 
-function UpdateModal({ openUpdate, setOpenUpdate, handleOpenUpdate, handleCloseUpdate, cat ,getCat}) {
+function UpdateModal({ openUpdate, setOpenUpdate, handleOpenUpdate, handleCloseUpdate, cat, getCat }) {
 
     const [name, setName] = useState(cat.name ?? "")
     const [pic, setPic] = useState(cat.pic ?? "");
@@ -65,19 +65,19 @@ function UpdateModal({ openUpdate, setOpenUpdate, handleOpenUpdate, handleCloseU
     };
 
     const updateCat = async () => {
-        if (!name || !pic) {
-            toast.warning('Please Fill all the required fields', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
-            // alert("Please Fill all the required fields")
-            return;
-        }
+        // if (!name || !pic) {
+        //     toast.warning('Please Fill all the required fields', {
+        //         position: "top-right",
+        //         autoClose: 3000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //     })
+        //     // alert("Please Fill all the required fields")
+        //     return;
+        // }
         try {
 
             const config = {
@@ -86,11 +86,11 @@ function UpdateModal({ openUpdate, setOpenUpdate, handleOpenUpdate, handleCloseU
                 }
             };
             const { data } = await axios.put(
-                "http://localhost:7000/api/cat/" + cat._id,
+                `${process.env.REACT_APP_BASEURL}/api/cat/` + cat._id,
                 { name, pic },
                 config
             );
-            console.log(data);
+            // console.log(data);
             // alert("Faq created successfully")
             toast.success('Category updated successfully!', {
                 position: "top-right",
@@ -141,10 +141,10 @@ function UpdateModal({ openUpdate, setOpenUpdate, handleOpenUpdate, handleCloseU
                         <br />
                         <img className='updateCatImg' src={pic} alt="" />
                         <br />
-                        <input type="file"
+                        <input className='file' type="file"
                             // value={pic}
                             onChange={(e) => postDetails(e.target.files[0])}
-                            style={{ margin: "5px", width: "400px" }}
+                            // style={{ margin: "5px", width: "400px" }}
                         />
                         <br />
                         <LoadingButton loading={picLoading} style={{ margin: "5px", width: "100%" }} variant="contained" color="success" onClick={updateCat}>

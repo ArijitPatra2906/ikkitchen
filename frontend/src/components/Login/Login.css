@@ -22,8 +22,11 @@
     }
 
     .loginBttn {
-        width: 80vw;
+        width: 89%;
         height: 50px;
-        margin: 5px;
+        /* margin: 5px; */
+    }
+    .loginForm{
+        height: 100vh;
     }
 }

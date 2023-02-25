@@ -14,20 +14,20 @@ function FaqModal({ open, handleClose, setOpen, getCat }) {
     const [picLoading, setPicLoading] = useState(false)
     const user = JSON.parse(localStorage.getItem("userInfo"))
     const create = async () => {
-        if (!name || !pic) {
-            toast.warning('Please Fill all the required fields', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
-            // alert("Please Fill all the required fields")
-            return;
-        }
-        console.log({ name, pic })
+        // if (!name || !pic) {
+        //     toast.warning('Please Fill all the required fields', {
+        //         position: "top-right",
+        //         autoClose: 3000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //     })
+        //     // alert("Please Fill all the required fields")
+        //     return;
+        // }
+        // console.log({ name, pic })
         try {
 
             const config = {
@@ -36,7 +36,7 @@ function FaqModal({ open, handleClose, setOpen, getCat }) {
                 }
             };
             const { data } = await axios.post(
-                "http://localhost:7000/api/cat",
+                `${process.env.REACT_APP_BASEURL}/api/cat`,
                 { name, pic, userId: user._id },
                 config
             );
@@ -144,9 +144,8 @@ function FaqModal({ open, handleClose, setOpen, getCat }) {
                             onChange={(e) => setName(e.target.value)}
                         />
                         <br />
-                        <input type="file"
+                        <input className='file' type="file"
                             onChange={(e) => postDetails(e.target.files[0])}
-                            style={{ margin: "5px", width: "400px" }}
                         />
                         <br />
                         <LoadingButton loading={picLoading} style={{ margin: "5px", width: "100%" }} variant="contained" onClick={create} color='success'>

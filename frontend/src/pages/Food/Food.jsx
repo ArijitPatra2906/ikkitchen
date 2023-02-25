@@ -25,7 +25,7 @@ function Food() {
     const getFoods = async () => {
         try {
             setLoading(true)
-            const result = await axios.get("http://localhost:7000/api/product");
+            const result = await axios.get(`${process.env.REACT_APP_BASEURL}/api/product`);
             setFood(result.data)
             setLoading(false)
         } catch (error) {
@@ -47,7 +47,8 @@ function Food() {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete("http://localhost:7000/api/product/" + id);
+            await axios.delete(`${process.env.REACT_APP_BASEURL}/api/product/` + id);
+            
             toast.success('Food deleted successfully!', {
                 position: "top-right",
                 autoClose: 5000,

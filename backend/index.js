@@ -8,6 +8,7 @@ const path = require("path");
 const CategoryRoutes = require("./routes/CategoryRoutes")
 const ProductRoutes = require("./routes/ProductRoutes")
 const AdminUserRoutes = require("./routes/AdminUserRoutes")
+const ContactRoutes = require("./routes/ContactRoutes")
 
 dotenv.config();
 app.use(express.json());
@@ -43,7 +44,7 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 app.use("/api/auth", AdminUserRoutes);
 app.use("/api/product", ProductRoutes);
 app.use("/api/cat", CategoryRoutes);
-
+app.use("/api/contact",ContactRoutes)
 
 app.get("/", function (req, res) {
     res.status(200).send("server running")

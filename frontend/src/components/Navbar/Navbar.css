@@ -100,7 +100,7 @@ input {
     display: flex;
     gap: 10px;
     color: #ffffff;
-    font-size: 18px;
+    font-size: 16px;
     text-decoration: none;
     margin: 15px;
     position: sticky;
@@ -128,7 +128,7 @@ input {
 
     .Navbar>.nav-items {
         position: absolute;
-        top: 55px;
+        top: 75px;
         display: flex;
         flex-direction: column;
         background: rgb(48, 47, 47);
@@ -269,7 +269,7 @@ input {
     }
 
     .open li span {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .open .title {
@@ -279,7 +279,7 @@ input {
 
     .Navbar>.nav-items {
         position: absolute;
-        top: 55px;
+        top: 90px;
         display: flex;
         flex-direction: column;
         /* background: #92836d; */

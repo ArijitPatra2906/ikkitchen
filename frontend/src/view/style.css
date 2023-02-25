@@ -32,4 +32,11 @@
     .home_right {
         display: none;
     }
+    .homeleft {
+        height: 100vh;
+        width: 100%;
+    }
+    .home{
+        padding-top: 150px;
+    }
 }

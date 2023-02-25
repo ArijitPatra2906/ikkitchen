@@ -17,19 +17,19 @@ function UpdateFoodModal({ openFoodUpdate, handleCloseFoodUpdate, setOpenFoodUpd
     const [halfOfHalfkgRate, setHalfOfHalfRate] = useState(food.halfOfHalfkgRate ?? "")
 
     const updateFood = async () => {
-        if (!category || !perportionrate || !halfkgRate || !fullkgRate) {
-            toast.warning('Please Fill all the required fields', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
-            // alert("Please Fill all the required fields")
-            return;
-        }
+        // if (!category || !halfkgRate || !fullkgRate) {
+        //     toast.warning('Please Fill all the required fields', {
+        //         position: "top-right",
+        //         autoClose: 3000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //     })
+        //     // alert("Please Fill all the required fields")
+        //     return;
+        // }
         try {
 
             const config = {
@@ -38,12 +38,10 @@ function UpdateFoodModal({ openFoodUpdate, handleCloseFoodUpdate, setOpenFoodUpd
                 }
             };
             const { data } = await axios.put(
-                "http://localhost:7000/api/product/" + food._id,
+                `${process.env.REACT_APP_BASEURL}/api/product/` + food._id,
                 { category, fullkgRate, name, perportionrate, halfkgRate },
                 config
             );
-            // console.log(data);
-            // alert("Faq created successfully")
             toast.success(data, {
                 position: "top-right",
                 autoClose: 5000,
@@ -73,7 +71,7 @@ function UpdateFoodModal({ openFoodUpdate, handleCloseFoodUpdate, setOpenFoodUpd
     useEffect(() => {
         const getCat = async () => {
             try {
-                const result = await axios.get("http://localhost:7000/api/cat");
+                const result = await axios.get(`${process.env.REACT_APP_BASEURL}/api/cat`,);
                 setCat(result.data)
                 // console.log(category)
             } catch (error) {

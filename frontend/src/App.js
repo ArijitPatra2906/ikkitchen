@@ -4,6 +4,7 @@ import LoginView from './view/LoginView';
 import DashboardView from './view/DashboardView';
 import CategoryView from './view/CategoryView';
 import FoodView from './view/FoodView';
+import ContactView from "./view/ContactView";
 import { ToastContainer } from 'react-toastify';
 import Some from './pages/Some';
 
@@ -22,6 +23,7 @@ function App() {
         <Route path='/' element={<LoginView />} />
         {/* <Route path='/register' element={<RegisterView />} /> */}
         <Route path="/dashboard" element={<DashboardView />} />
+        <Route path='/contact' element={<ContactView />} />
         <Route path='/category' element={<CategoryView />} />
         <Route path='/food' element={<FoodView />} />
         <Route path='/category/:catId' element={<Some />} />

@@ -7,7 +7,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import { Link, useNavigate } from "react-router-dom"
 import EmailIcon from '@mui/icons-material/Email';
-
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
 function Sidebar() {
     const navigate = useNavigate();
@@ -39,18 +39,18 @@ function Sidebar() {
                             <span>Categories</span>
                         </li>
                     </Link>
+                    <Link to="/contact" style={{ textDecoration: "none" }}>
+                        <li>
+                            <PostAddIcon className="icon" />
+                            <span>Contact</span>
+                        </li>
+                    </Link>
                     <Link to="/food" style={{ textDecoration: "none" }}>
                         <li>
                             <CreditCardIcon className="icon" />
                             <span>Food Items</span>
                         </li>
                     </Link>
-                    {/* <Link to="/blog" style={{ textDecoration: "none" }}>
-                        <li>
-                            <PostAddIcon className="icon" />
-                            <span>Blog</span>
-                        </li>
-                    </Link> */}
                     {/* <Link to="/faq" style={{ textDecoration: "none" }}>
                         <li>
                             <QuizIcon className="icon" />
@@ -60,7 +60,7 @@ function Sidebar() {
                     <p className="title">USER</p>
                     <li>
                         <AccountCircleOutlinedIcon className="icon" />
-                        <span style={{textTransform:"capitalize"}}>{user.username}</span>
+                        <span style={{ textTransform: "capitalize" }}>{user.username}</span>
                     </li>
                     <li>
                         <EmailIcon className="icon" />
